@@ -61,13 +61,32 @@ class SignUp extends React.Component {
                         });
                     e.target.reset();
                 }}>
-                    <input type='text' ref='username' placeholder='username' className='four columns offset-by-four' required/>   
+                    <input 
+                        type='text' 
+                        ref='username' 
+                        placeholder='username' 
+                        className='four columns offset-by-four' 
+                        required/>   
                     <br/>
-                    <input type='email' ref='email' placeholder='email' className='four columns offset-by-four' required/>
+                    <input 
+                        type='email' 
+                        ref='email' 
+                        placeholder='email' 
+                        className='four columns offset-by-four' 
+                        required/>
                     <br/>
-                    <input type='password' ref='password' placeholder='password' className='four columns offset-by-four' required/>
+                    <input 
+                        type='password' 
+                        ref='password'
+                        placeholder='password' 
+                        className='four columns offset-by-four' 
+                        required/>
                     <br/>
-                    <button type='submit' className='four columns offset-by-four button-primary'>Sign Up</button>
+                    <button 
+                        type='submit' 
+                        className='four columns offset-by-four button-primary'>
+                        Sign Up
+                    </button>
                 </form>
                 </div>
             </div>

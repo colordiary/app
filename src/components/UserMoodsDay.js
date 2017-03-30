@@ -1,8 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router-dom';
 import UserViewBar from './UserViewBar';
-import fetcher from '../helpers/fetcher';
-import { formatDate, currentDateToString } from '../helpers/formatDate';
+import { formatDate } from '../helpers/formatDate';
 
 export default class UserMoodsDay extends Component {
     constructor(props) {
@@ -16,17 +15,10 @@ export default class UserMoodsDay extends Component {
         match: PropTypes.object.isRequired,
     }
 
-    // user={ user } 
-    // blocks={this.state.blocks}
-    // handleDateSubmit={this.handleDateSubmit}
-    // doFetchDate={this.doFetchDate}
-    // date={this.state.date}
-    // handleBlockSelect={this.handleBlockSelect}
-
     render() {
         const formattedDate = formatDate(this.props.date);
         console.log('mood date',formattedDate)
-        if(!this.props.allMoods) {
+        if(!this.props.allMoods && !this.props.date) {
             return <div>loading</div>
         }
         const { match } = this.props;
@@ -46,10 +38,20 @@ export default class UserMoodsDay extends Component {
         });
         let allRows = [];
         allRows.push(rowOne, rowTwo, rowThree);
+        let weatherMood;
+        if (this.props.savedMoods) {
+            weatherMood = this.props.savedMoods[0];
+        }
         return (
             <div className='container'>
                 <h5 className='text-center'>{formattedDate}</h5>
-                {allRows.map((row, i)=> {
+                {weatherMood &&
+                    <div>
+                        <span>Location: {weatherMood.weather.city}, {weatherMood.weather.state}, {weatherMood.weather.country}</span>
+                        <span>Today's Weather: {weatherMood.weather.temp}, {weatherMood.weather.description}</span>
+                    </div>
+                }
+                {allRows.map((row, i) => {
                     return (<div className='row' key={i}>
                         {row.map((block, i) => {
                             return (
@@ -69,7 +71,10 @@ export default class UserMoodsDay extends Component {
                                         }
                                         {block.color &&
                                             (<input 
-                                                onClick={(e) => {console.log(block.color)}}
+                                                onClick={(e) => {
+                                                    console.log('block',block.block)
+                                                    this.props.handleBlockSelect(block.block);
+                                                }}
                                                 type='image'
                                                 key={i}
                                                 ref={block.block.blockNumber}
@@ -88,7 +93,6 @@ export default class UserMoodsDay extends Component {
                 <form onChange={(e) => {
                         e.preventDefault();
                         this.props.handleDateSubmit(this.refs.searchDate.value);
-                        this.props.doFetchDate(this.refs.searchDate.value);
                     }}>
                     <label>Choose another date:</label>
                     <input type='date'ref='searchDate' required/><span style={{fontSize: 24}}>*</span>

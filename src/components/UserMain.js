@@ -33,7 +33,9 @@ export default class UserMain extends Component {
 
     //TODO promise all
     componentDidMount() {
-        const token = localStorage.getItem('token');        
+        const token = localStorage.getItem('token'); 
+        let date= currentDateToString();
+
         fetcher({ 
             path: '/user', 
             method: 'GET', 
@@ -43,14 +45,6 @@ export default class UserMain extends Component {
             return res.json();
         })
         .then(user => {
-            const date = currentDateToString();
-            console.log('user main date', date)
-            this.setState({
-                user,
-                date
-            })
-        })
-        .then(() => {
             fetcher({
                 path: '/block', 
                 method: 'GET', 
@@ -62,7 +56,10 @@ export default class UserMain extends Component {
                 this.setState({
                     blocks,
                     allMoods: blocks,
+                    date,
+                    user
                 });
+               
             })
             .then (() => {
                 this.doFetchDate();
@@ -80,13 +77,12 @@ export default class UserMain extends Component {
 
     handleDateSubmit(date) {
         this.setState({
-            ...this.state,
             date
         })
+        this.doFetchDate()
     }
 
     doFetchDate() {
-        console.log('in fetch date', this.state.date);
         const token = localStorage.getItem('token');
         fetcher({
             path: `/user/moods?date=${this.state.date}`, 
@@ -116,7 +112,6 @@ export default class UserMain extends Component {
     }
 
     render() {
-        console.log('state',this.state)
         const { match } = this.props;
         const user = this.state.user;
         return (
@@ -140,6 +135,7 @@ export default class UserMain extends Component {
                         <UserMoodSelector {...props} 
                             date={this.state.date}
                             chosenBlock={this.state.chosenBlock}
+                            doFetchDate={this.doFetchDate}
                         />)} 
                     />
                     < Route path={`${match.url}/comments`} render={props => (

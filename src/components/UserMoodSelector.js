@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import fetcher from '../helpers/fetcher';
 
 export default class UserMoodSelector extends Component {
@@ -12,6 +12,7 @@ export default class UserMoodSelector extends Component {
         };
         this.handleMoodSubmit = this.handleMoodSubmit.bind(this);
         this.doFetchMoodPost = this.doFetchMoodPost.bind(this);
+        this.handleRedirectToUser = this.handleRedirectToUser.bind(this);
     }
 
     static propTypes = {
@@ -41,6 +42,11 @@ export default class UserMoodSelector extends Component {
         this.setState({
             ...this.state,
             selectedColor: color,
+        })
+    }
+
+    handleRedirectToUser() {
+        this.setState({
             submitMoodRedirect: true,
         })
     }
@@ -69,14 +75,14 @@ export default class UserMoodSelector extends Component {
                 console.log('error', json.error);
                 return;
             }
-            //call handler to change state to update list of moods
+            this.props.doFetchDate();
         });
     }
 
     render() {
-        // if(this.state.submitMoodRedirect) {
-        //     //redirect to main user page
-        // }
+        if(this.state.submitMoodRedirect) {
+            return (< Redirect to='/user' />);
+        }
         let colorRowOne = [];
         let colorRowTwo = [];
         let colorRowThree = [];
@@ -100,7 +106,6 @@ export default class UserMoodSelector extends Component {
                         e.preventDefault();
                         const zipcode = this.refs.zipcode.value;
                         const comment = this.refs.comment.value;
-                        this.handleMoodSubmit();
 
                         this.doFetchMoodPost(
                             this.props.chosenBlock._id, 
@@ -111,13 +116,14 @@ export default class UserMoodSelector extends Component {
                             .catch(err => {
                                 console.log(err);
                             });
+                        this.handleRedirectToUser();
                         e.target.reset();
                     }}>
                     <input type='text' ref='zipcode' placeholder='zip code' required/><span style={{fontSize: 24}}>*</span>
                     <br/>
                     <input type='text' ref='comment' placeholder='comment'/>
 
-                    <div style={{textAlign: 'center', marginTop: '20px'}}>What's your {'timeframe'} mood?</div>
+                    <div style={{textAlign: 'center', marginTop: '20px'}}>What's your {this.props.chosenBlock.timeFrame} mood?</div>
                     <div className='container'>
                     {allColorRows.map((row, i) => {
                         return (<div className='row' key={i}>
