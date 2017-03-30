@@ -12,7 +12,6 @@ export default function fetcher({ path, method, body, token }) {
     }
     if(body) {
         data.body = JSON.stringify(body);
-        console.log(body);
     } 
     return fetch( `/api${path}`, data);
 }

@@ -3,7 +3,7 @@ import NavBar from './NavBar';
 import MainBody from './MainBody';
 import Footer from './Footer';
 import fetcher from '../helpers/fetcher';
-import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 
 class App extends Component {
@@ -36,7 +36,6 @@ class App extends Component {
                         token: token,
                     });
                 }
-                //if valid token, redirect to user dashboard
             });
         }
     }
@@ -44,15 +43,12 @@ class App extends Component {
 
     handleSignIn(token) {
         localStorage.setItem('token', token);
-        this.setState({
-            isSignedIn: true,
-            token: token,
+        if(token) {
+            this.setState({
+                isSignedIn: true,
+                token: token,
+            });
         }
-        // , () => {
-        //     return ()
-        
-        // }
-        );
     }
 
     handleSignOut() {
@@ -66,12 +62,11 @@ class App extends Component {
     componentDidMount() {
         this.hydrateAuth();
     }
-    //fetch for colors and users
     render() {
         return (
             < Router >
                 < div className='app'>
-                    < Route path='/' render={props => (<NavBar {...props} handleSignOut={this.handleSignOut}/>)} />
+                    < Route path='/' render={props => (<NavBar {...props} isSignedIn={this.state.isSignedIn} handleSignOut={this.handleSignOut}/>)} />
                     < MainBody 
                         isSignedIn={this.state.isSignedIn} 
                         token={this.state.token} 

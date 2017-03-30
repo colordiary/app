@@ -1,5 +1,5 @@
 import React from 'react';
-import AllColors from './AllColors';
+import AllColorsStatic from './AllColorsStatic';
 //import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 export default function HomePage(props) {
@@ -15,7 +15,7 @@ export default function HomePage(props) {
                         <a style={{color: '#E55C5C'}}>D</a>
                     </h1>
                 </div>
-                < AllColors />
+                < AllColorsStatic />
             </div>
             <h6>record your moods with color</h6>
         </section>
