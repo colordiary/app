@@ -2,10 +2,10 @@ import React from 'react';
 import RC2 from 'react-chartjs2';
 
 export default function UserMonthChart(props) {
-    const moodColors = getColors(props.monthColors)
-    const pieColor = Object.keys(moodColors)
-    const moodCount = getCount(moodColors)
-    const moodLabels = getMoods(moodColors)
+    const moodColors = getColors(props.monthColors);
+    const pieColor = Object.keys(moodColors);
+    const moodCount = getCount(moodColors);
+    const moodLabels = getMoods(moodColors);
 
     const data = {
         labels: moodLabels,
@@ -29,13 +29,13 @@ export default function UserMonthChart(props) {
     function values(monthColorsCount) {
         const colorValues = [];
         Object.keys(monthColorsCount).forEach((key) => {
-            colorValues.push(monthColorsCount[key])
+            colorValues.push(monthColorsCount[key]);
         });
         return colorValues;
     }
 
     function getColors(monthColors) {
-        const colorCount = {}
+        const colorCount = {};
         monthColors.forEach((monthColor) => {
             let indexColor = monthColor.hexColor;
             if (colorCount[indexColor]) {
@@ -47,28 +47,26 @@ export default function UserMonthChart(props) {
                     mood: monthColor.mood
                 };
             }
-        })
+        });
         return colorCount;
     }
 
     function getCount(colors) {
-        console.log('getcount colors');
         return Object.keys(colors).map((colorKey) => {
-            return colors[colorKey].count
-        })
+            return colors[colorKey].count;
+        });
     }
 
     function getMoods(colors) {
-        console.log('getmoods colors');
         return Object.keys(colors).map((colorKey) => {
-            return colors[colorKey].mood
-        })
+            return colors[colorKey].mood;
+        });
     }
 
     return (
-        <div className='container'>
-            <div className='10 columns' style={{ backgroundColor: '#E6E6E6', height: 500 }}>
-                <div>
+        <div className='container' style={{marginBottom: 30}}>
+            <div className='row'>
+                <div className='six columns offset-by-three'>
                     <RC2 data={data} type='pie' />
                 </div>
             </div>

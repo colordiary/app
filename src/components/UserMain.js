@@ -4,7 +4,6 @@ import UserHeader from './UserHeader';
 import UserMoodsDay from './UserMoodsDay';
 import UserMoodSelector from './UserMoodSelector';
 import UserCommentView from './UserCommentView';
-import UserWeekView from './UserWeekView';
 import UserMonthView from './UserMonthView';
 import fetcher from '../helpers/fetcher';
 import { currentDateToString } from '../helpers/formatDate';
@@ -31,7 +30,6 @@ export default class UserMain extends Component {
         match: PropTypes.object.isRequired,
     }
 
-    //TODO promise all
     componentDidMount() {
         const token = localStorage.getItem('token'); 
         let date= currentDateToString();
@@ -144,7 +142,6 @@ export default class UserMain extends Component {
                             src={this.state.src}
                         />
                     )} />
-                    < Route path={`${match.url}/week`} component={ UserWeekView }/>
                     < Route path={`${match.url}/month`} component={ UserMonthView }/>
                 </Switch>
             </div>

@@ -32,3 +32,19 @@ export function currentDateToString() {
 
     return date = [year, month, day].join('-');
 }
+
+export function formatMonth(date) {
+    const monthNames = [
+        'January', 'February', 'March',
+        'April', 'May', 'June', 'July',
+        'August', 'September', 'October',
+        'November', 'December'
+    ];
+
+    let today = new Date(date);
+    today.setTime( today.getTime() + today.getTimezoneOffset() * 60*1000 );
+
+    const monthIndex = today.getMonth();
+
+    return (monthNames[monthIndex]);
+}

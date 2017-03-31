@@ -4,12 +4,6 @@ import UserViewBar from './UserViewBar';
 import { formatDate } from '../helpers/formatDate';
 
 export default class UserMoodsDay extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-
-        };
-    }
 
     static propTypes = {
         match: PropTypes.object.isRequired,
@@ -18,12 +12,13 @@ export default class UserMoodsDay extends Component {
     render() {
         const formattedDate = formatDate(this.props.date);
         if(!this.props.allMoods && !this.props.date) {
-            return <div>loading</div>
+            return <div style={{color: '#E6E6E6', textAlign: 'center'}}>LOADING</div>
         }
         const { match } = this.props;
         let rowOne = [];
         let rowTwo = [];
         let rowThree = [];
+        let count = 0;
         this.props.allMoods.forEach((block, i) => {
             if(i < 3) {
                 rowOne.push(block);
@@ -45,40 +40,49 @@ export default class UserMoodsDay extends Component {
             <div className='container'>
                 <h5 className='text-center'>{formattedDate}</h5>
                 {weatherMood &&
-                    <div>
-                        <span>Location: {weatherMood.weather.city}, {weatherMood.weather.state}, {weatherMood.weather.country}</span>
-                        <span>Today's Weather: {weatherMood.weather.temp}, {weatherMood.weather.description}</span>
+                    <div className='row'>
+                        <span className='eight columns offset-by-two'><a>Location:</a> {weatherMood.weather.city}, {weatherMood.weather.state}, {weatherMood.weather.country}</span>
+                        <br></br>
+                        <span className='eight columns offset-by-two'><a>Today's Weather:</a> {weatherMood.weather.temp}, {weatherMood.weather.description}</span>
                     </div>
                 }
-                {allRows.map((row, i) => {
-                    return (<div className='row' key={i}>
+                <div className='eight columns offset-by-two'>
+                {allRows.map((row, x) => {
+                    return (<div className='row' key={x}>
                         {row.map((block, i) => {
+                            count += 1;
                             return (
                                 <div className="four columns" key={block._id}>
                                     <Link to={`${match.url}/moods`}>
                                         {block.timeFrame &&
-                                            (<input 
-                                                onClick={(e) => {
-                                                    this.props.handleBlockSelect(block);
-                                                }}
-                                                type='image'
-                                                key={i}
-                                                ref={block.blockNumber}
-                                                src={this.props.src}
-                                                alt={`${block.timeFrame}`}
-                                            />)
+                                            (<div style={{textAlign:'center', marginBottom: 15}}>
+                                                <input style={{marginBottom: 0, display: 'block'}}
+                                                    onClick={(e) => {
+                                                        this.props.handleBlockSelect(block);
+                                                    }}
+                                                    type='image'
+                                                    key={i}
+                                                    ref={block.blockNumber}
+                                                    src={this.props.src}
+                                                    alt={`${block.timeFrame}`}
+                                                />
+                                                <span>{this.props.blocks[count -1].timeFrame}</span>
+                                            </div>)
                                         }
                                         {block.color &&
-                                            (<input 
-                                                onClick={(e) => {
-                                                    this.props.handleBlockSelect(block.block);
-                                                }}
-                                                type='image'
-                                                key={i}
-                                                ref={block.block.blockNumber}
-                                                src={block.color.path}
-                                                alt={`${block.block.timeFrame}`}
-                                            />)
+                                            (<div style={{textAlign:'center', marginBottom: 15}}>
+                                                <input style={{marginBottom: 0, display: 'block'}}
+                                                    onClick={(e) => {
+                                                        this.props.handleBlockSelect(block.block);
+                                                    }}
+                                                    type='image'
+                                                    key={i}
+                                                    ref={block.block.blockNumber}
+                                                    src={block.color.path}
+                                                    alt={`${block.block.timeFrame}`}
+                                                />
+                                                <span>{this.props.blocks[count - 1].timeFrame}</span>
+                                            </div>)
                                         }
                                     </Link>
                                 </div>
@@ -87,15 +91,18 @@ export default class UserMoodsDay extends Component {
                     </div>)
                     })
                 }
+                </div>
+                <div className='eight columns offset-by-two'>
+                    <form onChange={(e) => {
+                            e.preventDefault();
+                            this.props.handleDateSubmit(this.refs.searchDate.value);
+                        }}>
+                        <span className='margin-label'>See moods for another day:</span>
+                        <input type='date'ref='searchDate' required/>
+                            <span style={{fontSize: 24}}>*</span>
+                    </form>
+                </div>
                 <UserViewBar />
-                <form onChange={(e) => {
-                        e.preventDefault();
-                        this.props.handleDateSubmit(this.refs.searchDate.value);
-                    }}>
-                    <label>Choose another date:</label>
-                    <input type='date'ref='searchDate' required/>
-                        <span style={{fontSize: 24}}>*</span>
-                </form>
             </div>
         );
     }
