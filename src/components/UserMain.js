@@ -31,7 +31,6 @@ export default class UserMain extends Component {
         match: PropTypes.object.isRequired,
     }
 
-    //TODO promise all
     componentDidMount() {
         const token = localStorage.getItem('token'); 
         let date= currentDateToString();
@@ -144,7 +143,6 @@ export default class UserMain extends Component {
                             src={this.state.src}
                         />
                     )} />
-                    < Route path={`${match.url}/week`} component={ UserWeekView }/>
                     < Route path={`${match.url}/month`} component={ UserMonthView }/>
                 </Switch>
             </div>

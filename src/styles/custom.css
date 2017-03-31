@@ -38,6 +38,15 @@ nav {
     color: black;
 }
 
+.float-left {
+    float: left;
+}
+
+.float-right {
+    float: right;
+    
+}
+
 footer {
   position: absolute;
   right: 0; 
@@ -47,7 +56,6 @@ footer {
   height: 30px;
   padding: 1rem;
   text-align: center;
-  outline: 1px solid red;
 }
 
 /* Larger than mobile */
