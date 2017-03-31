@@ -11,7 +11,6 @@ export default class AllUsers extends Component {
             weatherDescription: [],
             cities: [],
             states: [],
-            countries: [],
             temps: [],
         };
         this.doAllMoodsFetch = this.doAllMoodsFetch.bind(this);
@@ -28,24 +27,20 @@ export default class AllUsers extends Component {
         let weatherDescription;
         let cities;
         let states;
-        let countries;
         let temps;
         Promise.all([
             this.doFilterFetch('weather.description'),
             this.doFilterFetch('weather.city'),
             this.doFilterFetch('weather.state'),
-            this.doFilterFetch('weather.country'),
             this.doFilterFetch('weather.temp'),
             this.doAllMoodsFetch()
         ])
         .then(filterValues => {
-            console.log('filterValues', filterValues)
             weatherDescription = filterValues[0];
             cities = filterValues[1];
             states = filterValues[2];
-            countries = filterValues[3];
             temps = filterValues[4];
-            moods = filterValues[5]
+            moods = filterValues[5];
 
             return cities;
         })
@@ -65,7 +60,6 @@ export default class AllUsers extends Component {
                 weatherDescription,
                 cities,
                 states,
-                countries,
                 temps,
             });
         });
@@ -168,7 +162,6 @@ export default class AllUsers extends Component {
                     {this.populateFilter('Filter by weather type:', 'description', this.state.weatherDescription)}
                     {this.populateFilter('Filter by city:', 'city', this.state.cities)}
                     {this.populateFilter('Filter by state:', 'state', this.state.states)}
-                    {this.populateFilter('Filter by country:', 'country', this.state.countries)}
                     <button onClick={(e) => {
                         e.preventDefault();
                         this.onAllMoods();

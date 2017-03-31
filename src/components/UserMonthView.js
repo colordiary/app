@@ -2,15 +2,18 @@ import React, {  Component, PropTypes } from 'react';
 import { Link } from 'react-router-dom';
 import fetcher from '../helpers/fetcher';
 import UserMonthChart from './UserMonthChart';
+import { currentDateToString } from '../helpers/formatDate';
 
 export default class UserMonthView extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            date: '2017-03-30',
+            date: '',
             monthMoods: [],
             monthColors: [],
         };
+        this.handleDateSubmit = this.handleDateSubmit.bind(this);
+        this.doFetchMonth = this.doFetchMonth.bind(this);
     }
 
     static propTypes = {
@@ -18,9 +21,18 @@ export default class UserMonthView extends Component {
     }
     
     componentDidMount() {
-        const token = localStorage.getItem('token');
+        let date= currentDateToString();
+        this.setState({
+            date
+        }, () => {
+            this.doFetchMonth(this.state.date);
+        })
+    }
+
+    doFetchMonth() {
         let monthColors;
-        fetcher({
+        const token = localStorage.getItem('token');
+        return fetcher({
             path: `/user/moods/month?month=${this.state.date}`,
             method: 'GET',
             token
@@ -41,12 +53,27 @@ export default class UserMonthView extends Component {
         .catch(err => {
             console.log('userMonth', err)
         })
+    }
 
+    handleDateSubmit(date) {
+        this.setState({
+            date
+        }, () => {
+            this.doFetchMonth()
+
+        })
     }
 
     render() {
         return (
             <div>
+                <form onChange={(e) => {
+                        e.preventDefault();
+                        this.handleDateSubmit(this.refs.searchDate.value);
+                    }}>
+                    <label>Choose another month:</label>
+                    <input type='date'ref='searchDate'/>
+                </form>
                 <UserMonthChart 
                     date={this.state.date} 
                     monthMoods={this.state.monthMoods} 
