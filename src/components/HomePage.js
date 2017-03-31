@@ -12,12 +12,15 @@ export default function HomePage(props) {
                         <a style={{color: '#8181FC'}}>H</a>                     
                         <a style={{color: '#6CB1BC'}}>U</a> 
                         <a style={{color: '#F2B451'}}>E</a>
-                        <a style={{color: '#E55C5C'}}>D</a>
+                        <a style={{ color: '#E55C5C' }}>D</a>
                     </h1>
                 </div>
                 < AllColorsStatic />
             </div>
             <h6>record your moods with color</h6>
+            <div className='six columns offset-by-three'>
+                <img src='/assets/faces.svg' />
+            </div>
         </section>
     );
 }

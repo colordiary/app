@@ -20,17 +20,18 @@ export default function UserCommentView(props) {
         <div className='container'>
             <h5 className='text-center'>{formattedDate}</h5>
             {weatherMood &&
-            <div className='bottom-offset'>
-                {weatherMood.weather.city && <span className='float-left'>Location: {weatherMood.weather.city}, {weatherMood.weather.state}, {weatherMood.weather.country}</span>}
-                {weatherMood.weather.temp && <span className='float-right'>Today's Weather: {weatherMood.weather.temp}, {weatherMood.weather.description}</span>}
-            </div>
-            }    
+                <div className='row'>
+                    <span className='eight columns offset-by-two'><a>Location:</a> {weatherMood.weather.city}, {weatherMood.weather.state}, {weatherMood.weather.country}</span>
+                    <br></br>
+                    <span className='eight columns offset-by-two'><a>Today's Weather:</a> {weatherMood.weather.temp}, {weatherMood.weather.description}</span>
+                </div>
+            }  
             <div className='row clearfix'>
                 <div className='two columns'>
                     <span><strong>Mood:</strong></span>
                 </div>
                 <div className='two columns'>
-                    <strong>Time Frame:</strong>
+                    <span><strong>Time Frame:</strong></span>
                 </div>
                 <span><strong>Comment:</strong></span>
             </div>

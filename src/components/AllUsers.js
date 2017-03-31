@@ -153,6 +153,9 @@ export default class AllUsers extends Component {
         const allUsersMoods = this.state.moods;
         return (
             <div className='container'>
+                <div className='six columns offset-by-three'>
+                    <img src='/assets/faces.svg'/>
+                </div>
                 <div >
                     <div className='eight columns offset-by-two'>
                         {this.populateFilter('Filter by weather:', 'description', this.state.weatherDescription)}

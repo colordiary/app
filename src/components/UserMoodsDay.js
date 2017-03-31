@@ -21,6 +21,7 @@ export default class UserMoodsDay extends Component {
         let rowOne = [];
         let rowTwo = [];
         let rowThree = [];
+        let count = 0;
         this.props.allMoods.forEach((block, i) => {
             if(i < 3) {
                 rowOne.push(block);
@@ -49,35 +50,42 @@ export default class UserMoodsDay extends Component {
                     </div>
                 }
                 <div className='eight columns offset-by-two'>
-                {allRows.map((row, i) => {
-                    return (<div className='row' key={i}>
+                {allRows.map((row, x) => {
+                    return (<div className='row' key={x}>
                         {row.map((block, i) => {
+                            count += 1;
                             return (
                                 <div className="four columns" key={block._id}>
                                     <Link to={`${match.url}/moods`}>
                                         {block.timeFrame &&
-                                            (<input 
-                                                onClick={(e) => {
-                                                    this.props.handleBlockSelect(block);
-                                                }}
-                                                type='image'
-                                                key={i}
-                                                ref={block.blockNumber}
-                                                src={this.props.src}
-                                                alt={`${block.timeFrame}`}
-                                            />)
+                                            (<div>
+                                                <input 
+                                                    onClick={(e) => {
+                                                        this.props.handleBlockSelect(block);
+                                                    }}
+                                                    type='image'
+                                                    key={i}
+                                                    ref={block.blockNumber}
+                                                    src={this.props.src}
+                                                    alt={`${block.timeFrame}`}
+                                                />
+                                                <span style={{textAlign:'center'}}>{this.props.blocks[count -1].timeFrame}</span>
+                                            </div>)
                                         }
                                         {block.color &&
-                                            (<input 
-                                                onClick={(e) => {
-                                                    this.props.handleBlockSelect(block.block);
-                                                }}
-                                                type='image'
-                                                key={i}
-                                                ref={block.block.blockNumber}
-                                                src={block.color.path}
-                                                alt={`${block.block.timeFrame}`}
-                                            />)
+                                            (<div>
+                                                <input 
+                                                    onClick={(e) => {
+                                                        this.props.handleBlockSelect(block.block);
+                                                    }}
+                                                    type='image'
+                                                    key={i}
+                                                    ref={block.block.blockNumber}
+                                                    src={block.color.path}
+                                                    alt={`${block.block.timeFrame}`}
+                                                />
+                                                <span>{this.props.blocks[count - 1].timeFrame}</span>
+                                            </div>)
                                         }
                                     </Link>
                                 </div>

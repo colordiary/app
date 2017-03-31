@@ -46,6 +46,10 @@ nav {
     float: right; 
 }
 
+a {
+    text-decoration: none;
+}
+
 footer {
   position: absolute;
   right: 0; 
