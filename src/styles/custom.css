@@ -61,6 +61,7 @@ footer {
     margin: 0 60px;
 }
 .center {
+    display: inline;
     margin: 0 auto;
 }
 

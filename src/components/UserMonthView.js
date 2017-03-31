@@ -2,7 +2,7 @@ import React, {  Component, PropTypes } from 'react';
 import { Link } from 'react-router-dom';
 import fetcher from '../helpers/fetcher';
 import UserMonthChart from './UserMonthChart';
-import { currentDateToString } from '../helpers/formatDate';
+import { currentDateToString, formatMonth } from '../helpers/formatDate';
 
 export default class UserMonthView extends Component {
     constructor(props) {
@@ -65,21 +65,25 @@ export default class UserMonthView extends Component {
     }
 
     render() {
+        const formattedDate = formatMonth(this.state.date);
         return (
-            <div>
-                <form onChange={(e) => {
-                        e.preventDefault();
-                        this.handleDateSubmit(this.refs.searchDate.value);
-                    }}>
-                    <label>Choose another month:</label>
-                    <input type='date'ref='searchDate'/>
-                </form>
+            <div className='container'>
+                <h5 className='text-center'>{formattedDate}</h5>
                 <UserMonthChart 
                     date={this.state.date} 
                     monthMoods={this.state.monthMoods} 
                     monthColors={this.state.monthColors}
                     />
-                <button><Link to='/user'>Back</Link></button>
+                <div className='four columns offset-by-four'>
+                    <form onChange={(e) => {
+                            e.preventDefault();
+                            this.handleDateSubmit(this.refs.searchDate.value);
+                        }}>
+                        <span>Select another month:</span>
+                        <input type='date'ref='searchDate'/>
+                    </form>
+                </div>
+                <button className='four columns offset-by-four'><Link to='/user'>Back</Link></button>
             </div>
         );
     }
