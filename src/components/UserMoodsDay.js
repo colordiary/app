@@ -4,9 +4,6 @@ import UserViewBar from './UserViewBar';
 import { formatDate } from '../helpers/formatDate';
 
 export default class UserMoodsDay extends Component {
-    constructor(props) {
-        super(props);
-    }
 
     static propTypes = {
         match: PropTypes.object.isRequired,
@@ -58,8 +55,8 @@ export default class UserMoodsDay extends Component {
                                 <div className="four columns" key={block._id}>
                                     <Link to={`${match.url}/moods`}>
                                         {block.timeFrame &&
-                                            (<div>
-                                                <input 
+                                            (<div style={{textAlign:'center', marginBottom: 15}}>
+                                                <input style={{marginBottom: 0, display: 'block'}}
                                                     onClick={(e) => {
                                                         this.props.handleBlockSelect(block);
                                                     }}
@@ -69,12 +66,12 @@ export default class UserMoodsDay extends Component {
                                                     src={this.props.src}
                                                     alt={`${block.timeFrame}`}
                                                 />
-                                                <span style={{textAlign:'center'}}>{this.props.blocks[count -1].timeFrame}</span>
+                                                <span>{this.props.blocks[count -1].timeFrame}</span>
                                             </div>)
                                         }
                                         {block.color &&
-                                            (<div>
-                                                <input 
+                                            (<div style={{textAlign:'center', marginBottom: 15}}>
+                                                <input style={{marginBottom: 0, display: 'block'}}
                                                     onClick={(e) => {
                                                         this.props.handleBlockSelect(block.block);
                                                     }}

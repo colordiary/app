@@ -17,9 +17,14 @@ export default function HomePage(props) {
                 </div>
                 < AllColorsStatic />
             </div>
-            <h6>record your moods with color</h6>
+            <div className='eight columns offset-by-two'>
+                <h5 style={{textAlign: 'center', marginTop: 35}}>Map your daily moods with color.</h5>
+                <p style={{textAlign: 'center'}}>This tool allows you to visualize your feelings over time. 
+                You can identify your mood patterns by tracking weather, location, day of the week, and personal comments. Also peek at how people are feeling around the country. 
+                </p>
+            </div>
             <div className='six columns offset-by-three'>
-                <img src='/assets/faces.svg' />
+                <img  alt='mood faces' src='/assets/faces.svg' />
             </div>
         </section>
     );

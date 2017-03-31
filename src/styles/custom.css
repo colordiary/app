@@ -80,6 +80,11 @@ footer {
 .margin-label {
     margin-right: 20px;
 }
+
+.testing > div:nth-child(12n + 1) {
+    margin-left: 0 !important;
+}
+
 /* Larger than mobile */
 @media (min-width: 400px) {
 

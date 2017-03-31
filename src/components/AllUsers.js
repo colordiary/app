@@ -175,18 +175,17 @@ export default class AllUsers extends Component {
                         }}>All Moods</button>
                     </div>
                 </div>
-                <div className='ten columns offset-by-one'>
+                <div className='eight columns offset-by-two testing'>
                 {allUsersMoods.map(mood => {
                     if(mood.color) {
                         return (
-                            <div className='one column' key={mood._id}>
+                            <div className='one column' key={mood._id} alt={mood.color.mood}>
                                 <img src={mood.color.path} key={mood._id} alt={mood.color}/>
                             </div>
                         );
                     }
                     return;
                 })
-
                 }
                 </div>
             </div>
