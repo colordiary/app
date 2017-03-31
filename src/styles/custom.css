@@ -38,6 +38,18 @@ nav {
     color: black;
 }
 
+.float-left {
+    float: left;
+}
+
+.float-right {
+    float: right; 
+}
+
+a {
+    text-decoration: none;
+}
+
 footer {
   position: absolute;
   right: 0; 
@@ -47,7 +59,30 @@ footer {
   height: 30px;
   padding: 1rem;
   text-align: center;
-  outline: 1px solid red;
+}
+
+.button-margin {
+    margin: 0 60px;
+}
+.center {
+    display: inline;
+    margin: 0 auto;
+}
+
+.bottom-offset {
+    margin-bottom: 15;
+}
+
+.clearfix {
+    clear: both;
+}
+
+.margin-label {
+    margin-right: 20px;
+}
+
+.testing > div:nth-child(12n + 1) {
+    margin-left: 0 !important;
 }
 
 /* Larger than mobile */

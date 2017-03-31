@@ -11,7 +11,6 @@ export default class AllUsers extends Component {
             weatherDescription: [],
             cities: [],
             states: [],
-            countries: [],
             temps: [],
         };
         this.doAllMoodsFetch = this.doAllMoodsFetch.bind(this);
@@ -28,24 +27,20 @@ export default class AllUsers extends Component {
         let weatherDescription;
         let cities;
         let states;
-        let countries;
         let temps;
         Promise.all([
             this.doFilterFetch('weather.description'),
             this.doFilterFetch('weather.city'),
             this.doFilterFetch('weather.state'),
-            this.doFilterFetch('weather.country'),
             this.doFilterFetch('weather.temp'),
             this.doAllMoodsFetch()
         ])
         .then(filterValues => {
-            console.log('filterValues', filterValues)
             weatherDescription = filterValues[0];
             cities = filterValues[1];
             states = filterValues[2];
-            countries = filterValues[3];
             temps = filterValues[4];
-            moods = filterValues[5]
+            moods = filterValues[5];
 
             return cities;
         })
@@ -65,7 +60,6 @@ export default class AllUsers extends Component {
                 weatherDescription,
                 cities,
                 states,
-                countries,
                 temps,
             });
         });
@@ -107,7 +101,7 @@ export default class AllUsers extends Component {
 
     populateFilter(chooseDefault, type, stateFilter) {
         return (
-            <select onChange={(e) => {
+            <select className='four columns offset-one' onChange={(e) => {
                 e.preventDefault();
                 const clicked = e.target.value;
                 this.onFilterChange(type, clicked);
@@ -159,33 +153,39 @@ export default class AllUsers extends Component {
         const allUsersMoods = this.state.moods;
         return (
             <div className='container'>
-                <div>
-                    <input type='date' ref='date' onChange={(e) => {
-                        const date = this.refs.date.value;
-                        e.preventDefault();
-                        this.onDateChange(date);
-                    }}/>
-                    {this.populateFilter('Filter by weather type:', 'description', this.state.weatherDescription)}
-                    {this.populateFilter('Filter by city:', 'city', this.state.cities)}
-                    {this.populateFilter('Filter by state:', 'state', this.state.states)}
-                    {this.populateFilter('Filter by country:', 'country', this.state.countries)}
-                    <button onClick={(e) => {
-                        e.preventDefault();
-                        this.onAllMoods();
-                    }}>All Moods</button>
+                <div className='six columns offset-by-three'>
+                    <img src='/assets/faces.svg'/>
                 </div>
-                <div className='ten columns'>
+                <div >
+                    <div className='eight columns offset-by-two'>
+                        {this.populateFilter('Filter by weather:', 'description', this.state.weatherDescription)}
+                        {this.populateFilter('Filter by city:', 'city', this.state.cities)}
+                        {this.populateFilter('Filter by state:', 'state', this.state.states)}
+                    </div>
+                    <div className='eight columns offset-by-two'>
+                        <span className='margin-label'>Filter by date:</span>
+                        <input type='date' ref='date' onChange={(e) => {
+                            const date = this.refs.date.value;
+                            e.preventDefault();
+                            this.onDateChange(date);
+                        }}/>
+                        <button className='button-primary float-right' onClick={(e) => {
+                            e.preventDefault();
+                            this.onAllMoods();
+                        }}>All Moods</button>
+                    </div>
+                </div>
+                <div className='eight columns offset-by-two testing'>
                 {allUsersMoods.map(mood => {
                     if(mood.color) {
                         return (
-                            <div className='one column' key={mood._id}>
+                            <div className='one column' key={mood._id} alt={mood.color.mood}>
                                 <img src={mood.color.path} key={mood._id} alt={mood.color}/>
                             </div>
                         );
                     }
                     return;
                 })
-
                 }
                 </div>
             </div>

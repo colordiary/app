@@ -118,11 +118,20 @@ export default class UserMoodSelector extends Component {
                         this.handleRedirectToUser();
                         e.target.reset();
                     }}>
-                    <input type='text' ref='zipcode' placeholder='zip code' required/><span style={{fontSize: 24}}>*</span>
+                    <div className='row'>
+                        <div className='ten columns offset-by-one'>
+                            <span className='margin-label'>Where are you?</span>
+                            <input type='text' ref='zipcode' placeholder='zip code' required/><span style={{fontSize: 24}}>*</span>
+                        </div>
+                    </div>
                     <br/>
-                    <input type='text' ref='comment' placeholder='comment'/>
-
-                    <div style={{textAlign: 'center', marginTop: '20px'}}>What's your {this.props.chosenBlock.timeFrame} mood?</div>
+                    <div className='row'>
+                        <div className='ten columns offset-by-one'>
+                            <span className='margin-label'>What's going on?</span>
+                            <input type='text' ref='comment' placeholder='comment'/>
+                        </div>
+                    </div>
+                    <div className='ten columns offset-by-one bottom-offset'>How are your feeling this {this.props.chosenBlock.timeFrame}?</div>
                     <div className='container'>
                     {allColorRows.map((row, i) => {
                         return (<div className='row' key={i}>
@@ -146,8 +155,10 @@ export default class UserMoodSelector extends Component {
                         </div>)
                     })}
                     </div>
-                    <button className='button-primary'>Submit Mood</button>
-                    <button><Link to='/user'>Back</Link></button>
+                    <div className='row'>
+                        <button className='button-primary four columns offset-by-four'>Submit Mood</button>
+                        <button className='four columns offset-by-four'><Link to='/user'>Back</Link></button>
+                    </div>
                 </form>
             </section>
         );
