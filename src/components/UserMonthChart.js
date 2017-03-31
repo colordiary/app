@@ -52,14 +52,12 @@ export default function UserMonthChart(props) {
     }
 
     function getCount(colors) {
-        console.log('getcount colors');
         return Object.keys(colors).map((colorKey) => {
             return colors[colorKey].count;
         });
     }
 
     function getMoods(colors) {
-        console.log('getmoods colors');
         return Object.keys(colors).map((colorKey) => {
             return colors[colorKey].mood;
         });

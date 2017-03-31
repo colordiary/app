@@ -101,7 +101,7 @@ export default class AllUsers extends Component {
 
     populateFilter(chooseDefault, type, stateFilter) {
         return (
-            <select onChange={(e) => {
+            <select className='four columns offset-one' onChange={(e) => {
                 e.preventDefault();
                 const clicked = e.target.value;
                 this.onFilterChange(type, clicked);
@@ -153,21 +153,26 @@ export default class AllUsers extends Component {
         const allUsersMoods = this.state.moods;
         return (
             <div className='container'>
-                <div>
-                    <input type='date' ref='date' onChange={(e) => {
-                        const date = this.refs.date.value;
-                        e.preventDefault();
-                        this.onDateChange(date);
-                    }}/>
-                    {this.populateFilter('Filter by weather type:', 'description', this.state.weatherDescription)}
-                    {this.populateFilter('Filter by city:', 'city', this.state.cities)}
-                    {this.populateFilter('Filter by state:', 'state', this.state.states)}
-                    <button onClick={(e) => {
-                        e.preventDefault();
-                        this.onAllMoods();
-                    }}>All Moods</button>
+                <div >
+                    <div className='eight columns offset-by-two'>
+                        {this.populateFilter('Filter by weather:', 'description', this.state.weatherDescription)}
+                        {this.populateFilter('Filter by city:', 'city', this.state.cities)}
+                        {this.populateFilter('Filter by state:', 'state', this.state.states)}
+                    </div>
+                    <div className='eight columns offset-by-two'>
+                        <span className='margin-label'>Filter by date:</span>
+                        <input type='date' ref='date' onChange={(e) => {
+                            const date = this.refs.date.value;
+                            e.preventDefault();
+                            this.onDateChange(date);
+                        }}/>
+                        <button className='button-primary float-right' onClick={(e) => {
+                            e.preventDefault();
+                            this.onAllMoods();
+                        }}>All Moods</button>
+                    </div>
                 </div>
-                <div className='ten columns'>
+                <div className='ten columns offset-by-one'>
                 {allUsersMoods.map(mood => {
                     if(mood.color) {
                         return (

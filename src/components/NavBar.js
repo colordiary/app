@@ -10,7 +10,9 @@ export default function NavBar({ handleSignOut, isSignedIn }) {
                     <li className='navbar-item'><Link to='/allusers'>all users</Link></li>
                 </div>
                 <div style={{float: 'right'}}>
-                    <li className='navbar-item'><Link to='/user'>me</Link></li>
+                    {isSignedIn && (
+                        <li className='navbar-item'><Link to='/user'>my moods</Link></li>
+                    )}
                     {isSignedIn && (
                         <li className='navbar-item' onClick={handleSignOut}><Link to='/'>signout</Link></li>
                     )}

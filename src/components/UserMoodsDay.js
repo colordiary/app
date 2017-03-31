@@ -6,9 +6,6 @@ import { formatDate } from '../helpers/formatDate';
 export default class UserMoodsDay extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-
-        };
     }
 
     static propTypes = {
@@ -18,7 +15,7 @@ export default class UserMoodsDay extends Component {
     render() {
         const formattedDate = formatDate(this.props.date);
         if(!this.props.allMoods && !this.props.date) {
-            return <div>loading</div>
+            return <div style={{color: '#E6E6E6', textAlign: 'center'}}>LOADING</div>
         }
         const { match } = this.props;
         let rowOne = [];
