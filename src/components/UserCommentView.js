@@ -13,43 +13,45 @@ export default function UserCommentView(props) {
         <div className='container'>
             <h5 className='text-center'>{formattedDate}</h5>
             {weatherMood &&
-                <div>
-                    <span>Location: {weatherMood.weather.city}, {weatherMood.weather.state}, {weatherMood.weather.country}</span>
-                    <span>Today's Weather: {weatherMood.weather.temp}, {weatherMood.weather.description}</span>
+                <div className='bottom-offset'>
+                    {weatherMood.weather.city && <span className='float-left'>Location: {weatherMood.weather.city}, {weatherMood.weather.state}, {weatherMood.weather.country}</span>}
+                    {weatherMood.weather.temp && <span className='float-right'>Today's Weather: {weatherMood.weather.temp}, {weatherMood.weather.description}</span>}
                 </div>    
             }
-            <div className='row'>
+            <div className='row clearfix'>
                 <div className='two columns'>
-                    <span>Time Frame</span>
+                    <span><strong>Mood:</strong></span>
                 </div>
                 <div className='two columns'>
-                    Mood:
+                    <strong>Time Frame:</strong>
                 </div>
-                <span>Comment:</span>
+                <span><strong>Comment:</strong></span>
             </div>
             {dayMoods.map((mood, i) => {
                 if(mood.userId) {
                     return (
-                        <div key={i} className='row'>
-                            <div className='two columns'>
-                                <span>{mood.block.timeFrame}</span>
+                        <div key={i}>
+                            <div className='row'>
+                                <div className='two columns'>
+                                    <img src={mood.color.path} alt={mood.color.mood}/>
+                                </div>
+                                <div className='two columns'>
+                                    <span>{mood.block.timeFrame}</span>
+                                </div>
+                                <span>{mood.comment}</span>
                             </div>
-                            <div className='two columns'>
-                                <img src={mood.color.path} alt={mood.color.mood}/>
-                            </div>
-                            <span>{mood.comment}</span>
                         </div>
                     );
                 } else {
                     return (
-                        <div>
-                            <div key={i} className='row'>
+                        <div key={i}>
+                            <div className='row'>
                                 <span></span>
                                 <div className='two columns'>
-                                    <span className='text-center'>{mood.timeFrame}</span>
+                                    <img src={props.src} alt='default' />
                                 </div>
                                 <div className='two columns'>
-                                    <img src={props.src} alt='default' />
+                                    <span className='text-center'>{mood.timeFrame}</span>
                                 </div>
                                 <span style={{color: 'lightGray'}}>no mood logged</span>
                             </div>

@@ -67,8 +67,8 @@ export default function UserMonthChart(props) {
 
     return (
         <div className='container'>
-            <div className='10 columns' style={{ backgroundColor: '#E6E6E6', height: 500 }}>
-                <div>
+            <div className='row'>
+                <div className='six columns offset-by-three'>
                     <RC2 data={data} type='pie' />
                 </div>
             </div>

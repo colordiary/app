@@ -43,8 +43,7 @@ nav {
 }
 
 .float-right {
-    float: right;
-    
+    float: right; 
 }
 
 footer {
@@ -58,6 +57,24 @@ footer {
   text-align: center;
 }
 
+.button-margin {
+    margin: 0 60px;
+}
+.center {
+    margin: 0 auto;
+}
+
+.bottom-offset {
+    margin-bottom: 15;
+}
+
+.clearfix {
+    clear: both;
+}
+
+.margin-label {
+    margin-right: 20px;
+}
 /* Larger than mobile */
 @media (min-width: 400px) {
 

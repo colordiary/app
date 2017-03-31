@@ -4,7 +4,6 @@ import UserHeader from './UserHeader';
 import UserMoodsDay from './UserMoodsDay';
 import UserMoodSelector from './UserMoodSelector';
 import UserCommentView from './UserCommentView';
-import UserWeekView from './UserWeekView';
 import UserMonthView from './UserMonthView';
 import fetcher from '../helpers/fetcher';
 import { currentDateToString } from '../helpers/formatDate';

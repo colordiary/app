@@ -45,11 +45,13 @@ export default class UserMoodsDay extends Component {
             <div className='container'>
                 <h5 className='text-center'>{formattedDate}</h5>
                 {weatherMood &&
-                    <div>
-                        <span>Location: {weatherMood.weather.city}, {weatherMood.weather.state}, {weatherMood.weather.country}</span>
-                        <span>Today's Weather: {weatherMood.weather.temp}, {weatherMood.weather.description}</span>
+                    <div className='row'>
+                        <span className='eight columns offset-by-two'><a>Location:</a> {weatherMood.weather.city}, {weatherMood.weather.state}, {weatherMood.weather.country}</span>
+                        <br></br>
+                        <span className='eight columns offset-by-two'><a>Today's Weather:</a> {weatherMood.weather.temp}, {weatherMood.weather.description}</span>
                     </div>
                 }
+                <div className='eight columns offset-by-two'>
                 {allRows.map((row, i) => {
                     return (<div className='row' key={i}>
                         {row.map((block, i) => {
@@ -87,15 +89,18 @@ export default class UserMoodsDay extends Component {
                     </div>)
                     })
                 }
+                </div>
+                <div className='eight columns offset-by-two'>
+                    <form onChange={(e) => {
+                            e.preventDefault();
+                            this.props.handleDateSubmit(this.refs.searchDate.value);
+                        }}>
+                        <span className='margin-label'>See moods for another day:</span>
+                        <input type='date'ref='searchDate' required/>
+                            <span style={{fontSize: 24}}>*</span>
+                    </form>
+                </div>
                 <UserViewBar />
-                <form onChange={(e) => {
-                        e.preventDefault();
-                        this.props.handleDateSubmit(this.refs.searchDate.value);
-                    }}>
-                    <label>Choose another date:</label>
-                    <input type='date'ref='searchDate' required/>
-                        <span style={{fontSize: 24}}>*</span>
-                </form>
             </div>
         );
     }
