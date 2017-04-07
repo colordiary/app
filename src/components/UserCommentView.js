@@ -4,7 +4,7 @@ import { formatDate } from '../helpers/formatDate';
 
 export default function UserCommentView(props) {
     const dayBlocks = props.allMoods;
-    console.log('dayBlocks',dayBlocks);
+
     let weatherMood;
     if(dayBlocks) {
         let dayMoods = dayBlocks.filter(block => {
@@ -15,7 +15,7 @@ export default function UserCommentView(props) {
         weatherMood = dayMoods[0];
     }
     const formattedDate = formatDate(props.date);
-    console.log('comment date', formattedDate);
+    // this is a run-on render, find a way to break it up so it's more readable
     return (
         <div className='container'>
             <h5 className='text-center'>{formattedDate}</h5>

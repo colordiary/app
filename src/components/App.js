@@ -64,16 +64,19 @@ class App extends Component {
     }
     render() {
         return (
-            < Router >
-                < div className='app'>
-                    < Route path='/' render={props => (<NavBar {...props} isSignedIn={this.state.isSignedIn} handleSignOut={this.handleSignOut}/>)} />
-                    < MainBody 
+            <Router >
+                <div className='app'>
+                    <Route path='/' render={props => (<NavBar {...props} isSignedIn={this.state.isSignedIn} handleSignOut={this.handleSignOut}/>)} />
+                    <MainBody 
                         isSignedIn={this.state.isSignedIn} 
                         token={this.state.token} 
                         handleSignIn={this.handleSignIn}/>
-                    < Route path='/' component={ Footer }/>
+                    { /* this Route isn't need as is always going to match
+                        and your not using props */
+                    }
+                    <Footer/>
                 </div>
-            </ Router >
+            </Router >
         );
     }
 }

@@ -2,6 +2,9 @@ import React from 'react';
 import RC2 from 'react-chartjs2';
 
 export default function UserMonthChart(props) {
+    // There's a lot of repetative work happening here.
+    // You need to figure out what the right data structures
+    // are that are needed.
     const moodColors = getColors(props.monthColors);
     const pieColor = Object.keys(moodColors);
     const moodCount = getCount(moodColors);
@@ -17,6 +20,7 @@ export default function UserMonthChart(props) {
 
 
     function count(monthColors) {
+        // this is a .reduce, reduce the array down to a single result (accumulator)
         const colorCount = {};
         monthColors.forEach((monthColor) => {
             let indexColor = monthColor.color.hexColor;
@@ -27,6 +31,7 @@ export default function UserMonthChart(props) {
     }
 
     function values(monthColorsCount) {
+        // this is a map, go through the fist array and return a corresponding value
         const colorValues = [];
         Object.keys(monthColorsCount).forEach((key) => {
             colorValues.push(monthColorsCount[key]);
@@ -34,6 +39,7 @@ export default function UserMonthChart(props) {
         return colorValues;
     }
 
+    // isn't this the same as "function count" above???
     function getColors(monthColors) {
         const colorCount = {};
         monthColors.forEach((monthColor) => {

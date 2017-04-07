@@ -1,18 +1,26 @@
-import React from 'react';
+import React, { Component } from 'react';
 import AllColorsStatic from './AllColorsStatic';
 //import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
-export default function HomePage(props) {
+// You could encapsulate (though fine how you had it too) like:
+class ColorLink extends Component {
+    render() {
+        return <a style={{color: this.props.color}}>{this.children}</a>;
+    }
+}
+
+export default function HomePage() {
+
     return (
         <section className='container'>
             <div>
                 <div className='title'>
                     <h3>your mood,</h3>  
                     <h1>                  
-                        <a style={{color: '#8181FC'}}>H</a>                     
-                        <a style={{color: '#6CB1BC'}}>U</a> 
-                        <a style={{color: '#F2B451'}}>E</a>
-                        <a style={{ color: '#E55C5C' }}>D</a>
+                        <ColorLink color='#8181FC'>H</ColorLink>                     
+                        <ColorLink color='#6CB1BC'>U</ColorLink> 
+                        <ColorLink color='#F2B451'>E</ColorLink>
+                        <ColorLink color='#E55C5C'>D</ColorLink>
                     </h1>
                 </div>
                 < AllColorsStatic />

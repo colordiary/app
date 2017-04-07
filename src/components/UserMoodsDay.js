@@ -9,6 +9,8 @@ export default class UserMoodsDay extends Component {
         match: PropTypes.object.isRequired,
     }
 
+    // this method is a bit of a mess. It needs to be broken into some 
+    // chunks to make it easier to understand.
     render() {
         const formattedDate = formatDate(this.props.date);
         if(!this.props.allMoods && !this.props.date) {

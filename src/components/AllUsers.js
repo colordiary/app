@@ -46,11 +46,7 @@ export default class AllUsers extends Component {
         })
         .then(fullCities => {
             cities = fullCities.map(city => {
-                const splitCity = city.split(',');
-                if(splitCity.length > 1){
-                    return splitCity.pop();
-                }
-                return city;
+                return city.split(',')[0];
             });
         })
         .then(() => {
@@ -98,7 +94,6 @@ export default class AllUsers extends Component {
         });
     }
 
-
     populateFilter(chooseDefault, type, stateFilter) {
         return (
             <select className='four columns offset-one' onChange={(e) => {
@@ -135,14 +130,12 @@ export default class AllUsers extends Component {
     }
 
     onDateChange(date) {
-        console.log(date)
         return fetcher({
             path: `/users/moods/date?date=${date}`,
             method: 'GET',
         })
             .then(res => res.json())
             .then(moods => {
-                console.log(moods)
                 this.setState({
                     moods,
                 });
@@ -165,12 +158,13 @@ export default class AllUsers extends Component {
                     <div className='eight columns offset-by-two'>
                         <span className='margin-label'>Filter by date:</span>
                         <input type='date' ref='date' onChange={(e) => {
+                            // because you have e, I think you can just use e.target.value
                             const date = this.refs.date.value;
                             e.preventDefault();
                             this.onDateChange(date);
                         }}/>
                         <button className='button-primary float-right' onClick={(e) => {
-                            e.preventDefault();
+                            e.preventDefault(); // is this needed?
                             this.onAllMoods();
                         }}>All Moods</button>
                     </div>

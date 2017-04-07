@@ -37,18 +37,11 @@ export default class UserMonthView extends Component {
             method: 'GET',
             token
         })
-        .then(res => res.json())
-        .then(moods => {
-            monthColors = moods.map(mood => {
-                return mood.color;
-            })
-            return moods;
-        })
         .then(moods => {
             this.setState({
                 monthMoods: moods,
-                monthColors 
-            })
+                monthColors: moods.map(mood => mood.color)
+            });
         })
         .catch(err => {
             console.log('userMonth', err)
@@ -60,7 +53,6 @@ export default class UserMonthView extends Component {
             date
         }, () => {
             this.doFetchMonth()
-
         })
     }
 
