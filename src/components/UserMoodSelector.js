@@ -66,14 +66,13 @@ export default class UserMoodSelector extends Component {
             },
             token,
         })
-        .then(res => {
-            return res.json();
-        })
         .then(json => {
             if(json.error) {
                 console.log('error', json.error);
                 return;
             }
+            // consider integrating the new data into the data you 
+            // already have rather than having to refetch
             this.props.doFetchDate();
         });
     }

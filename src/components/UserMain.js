@@ -34,36 +34,33 @@ export default class UserMain extends Component {
         const token = localStorage.getItem('token'); 
         let date= currentDateToString();
 
-        fetcher({ 
-            path: '/user', 
-            method: 'GET', 
-            token: token 
-        })
-        .then(res => {
-            return res.json();
-        })
-        .then(user => {
+        // these should be parallel
+        Promise.all([
+            fetcher({ 
+                path: '/user', 
+                method: 'GET', 
+                token: token 
+            }),
             fetcher({
                 path: '/block', 
                 method: 'GET', 
             })
-            .then(res => {
-                return res.json();
-            })
-            .then(blocks => {
-                this.setState({
-                    blocks,
-                    allMoods: blocks,
-                    date,
-                    user
-                });
-               
-            })
-            .then (() => {
-                this.doFetchDate();
+        ])
+        .then(([user, blocks]) => {
+            this.setState({
+                blocks,
+                allMoods: blocks,
+                date,
+                user
             });
+               
         })
-        .catch()
+        // could this be in parallel too?
+        .then (() => {
+            this.doFetchDate();
+        });
+        // this is pointless:
+        // .catch()
     }
 
     handleBlockSelect(chosenBlock) {
@@ -77,8 +74,7 @@ export default class UserMain extends Component {
         this.setState({
             date
         }, () => {
-            this.doFetchDate()
-
+            this.doFetchDate();
         })
     }
 
@@ -88,9 +84,6 @@ export default class UserMain extends Component {
             path: `/user/moods?date=${this.state.date}`, 
             method: 'GET', 
             token
-        })
-        .then(res => {
-            return res.json();
         })
         .then(moods => {
             const allMoods = [...this.state.blocks];
@@ -148,5 +141,4 @@ export default class UserMain extends Component {
         );
     }
 }
-                // <span>Today's weather: </span>
-                // <span>Location: </span>
+       
